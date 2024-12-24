@@ -226,6 +226,8 @@
         <div class="email-section">
             <label for="userEmail">Your Email:</label>
             <input type="email" id="userEmail" name="userEmail" placeholder="Your email address" required>
+            <label for="roomNumber">Room Number:</label>
+            <input type="text" id="roomNumber" name="roomNumber" placeholder="Your room number" required>
             <label for="restaurantEmail">Restaurant Email:</label>
             <input type="hidden" id="restaurantEmail" name="restaurantEmail" value="godsownmech@gmail.com">
         </div>
@@ -243,6 +245,7 @@
         const selectedItems = Array.from(document.querySelectorAll('input[name="menuItem"]:checked'))
             .map(item => item.value);
         const userEmail = document.getElementById('userEmail').value;
+        const roomNumber = document.getElementById('roomNumber').value;
         const restaurantEmail = document.getElementById('restaurantEmail').value;
 
         if (!selectedItems.length) {
@@ -250,18 +253,19 @@
             return;
         }
 
-        if (!userEmail || !restaurantEmail) {
-            alert("Please provide both your email and the restaurant's email.");
+        if (!userEmail || !roomNumber || !restaurantEmail) {
+            alert("Please provide both your email, room number, and the restaurant's email.");
             return;
         }
 
         fetch('http://localhost:5000/place_order', {
-            method: 'POST', // Make sure this is POST
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 items: selectedItems,
+                room_number: roomNumber,
                 user_email: userEmail,
                 restaurant_email: restaurantEmail,
             }),
