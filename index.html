@@ -3,288 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Menu</title>
+    <title>Restaurant Order Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
+            background-color: #f4f4f4;
+            padding: 20px;
         }
-
-        header {
-            background-color: #000;
-            color: white;
+        h1 {
             text-align: center;
-            padding: 1rem;
         }
-
-        .menu {
-            max-width: 800px;
-            margin: 2rem auto;
-            background: white;
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
-
-        .menu-section {
-            margin-bottom: 2rem;
+        .form-group {
+            margin-bottom: 15px;
         }
-
-        .menu-section h2 {
-            border-bottom: 2px solid #000;
-            color: #333;
-            padding-bottom: 0.5rem;
-        }
-
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-
-        .menu-item-name {
+        .form-group label {
             font-weight: bold;
-            color: #555;
-        }
-
-        .menu-item-price {
-            color: #777;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1rem;
-            background: #000;
-            color: white;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-
-        .order-button {
             display: block;
+        }
+        .form-group input,
+        .form-group textarea {
             width: 100%;
-            padding: 0.75rem;
-            background-color: #000;
-            color: white;
-            font-size: 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        .order-button:hover {
-            background-color: #333;
-        }
-
-        .email-section {
-            margin-top: 1rem;
-        }
-
-        .email-section label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .email-section input {
-            padding: 0.5rem;
+            padding: 10px;
+            margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
+        }
+        button {
             width: 100%;
-            max-width: 400px;
-            margin-bottom: 1rem;
+            padding: 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
         }
     </style>
 </head>
 <body>
-
-<header>
-    <h1>Welcome to Godsown Retreat</h1>
-</header>
-
-<main class="menu">
-    <form id="menuForm">
-        <!-- Meals -->
-        <div class="menu-section">
-            <h2>Meals</h2>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Breakfast">
-                    <span class="menu-item-name">Breakfast</span>
-                </label>
-                <span class="menu-item-price">₹80</span>
-            </div>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Lunch">
-                    <span class="menu-item-name">Lunch</span>
-                </label>
-                <span class="menu-item-price">₹100</span>
-            </div>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Dinner">
-                    <span class="menu-item-name">Dinner</span>
-                </label>
-                <span class="menu-item-price">₹100</span>
-            </div>
+    <h1>Place Your Order</h1>
+    <div class="form-container">
+        <div class="form-group">
+            <label for="user_email">Your Email:</label>
+            <input type="email" id="user_email" placeholder="Enter your email" required>
         </div>
-
-        <!-- Beverages -->
-        <div class="menu-section">
-            <h2>Beverages</h2>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Tea">
-                    <span class="menu-item-name">Tea</span>
-                </label>
-                <span class="menu-item-price">₹40</span>
-            </div>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Coffee">
-                    <span class="menu-item-name">Coffee</span>
-                </label>
-                <span class="menu-item-price">₹40</span>
-            </div>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Coldrink">
-                    <span class="menu-item-name">Coldrink</span>
-                </label>
-                <span class="menu-item-price">₹40</span>
-            </div>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Cold Coffee">
-                    <span class="menu-item-name">Cold Coffee</span>
-                </label>
-                <span class="menu-item-price">₹60</span>
-            </div>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Fresh Juices">
-                    <span class="menu-item-name">Fresh Juices</span>
-                </label>
-                <span class="menu-item-price">₹50</span>
-            </div>
+        <div class="form-group">
+            <label for="room_number">Room Number:</label>
+            <input type="text" id="room_number" placeholder="Enter your room number (Optional)">
         </div>
-
-        <!-- Snacks -->
-        <div class="menu-section">
-            <h2>Snacks</h2>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Egg Omlette">
-                    <span class="menu-item-name">Egg Omlette</span>
-                </label>
-                <span class="menu-item-price">₹30</span>
-            </div>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Maggie">
-                    <span class="menu-item-name">Maggie</span>
-                </label>
-                <span class="menu-item-price">₹30</span>
-            </div>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Spring Rolls">
-                    <span class="menu-item-name">Spring Rolls</span>
-                </label>
-                <span class="menu-item-price">₹70</span>
-            </div>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Chowmein">
-                    <span class="menu-item-name">Chowmein</span>
-                </label>
-                <span class="menu-item-price">₹70</span>
-            </div>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Chicken Fry">
-                    <span class="menu-item-name">Chicken Fry</span>
-                </label>
-                <span class="menu-item-price">₹100</span>
-            </div>
+        <div class="form-group">
+            <label for="items">Order Items (Comma Separated):</label>
+            <textarea id="items" placeholder="Enter the items you want to order" rows="4" required></textarea>
         </div>
+        <button id="placeOrderBtn">Place Order</button>
+        <div id="responseMessage" style="margin-top: 20px;"></div>
+    </div>
 
-        <!-- Email Section -->
-        <div class="email-section">
-            <label for="userEmail">Your Email:</label>
-            <input type="email" id="userEmail" name="userEmail" placeholder="Your email address" required>
-            <label for="roomNumber">Room Number:</label>
-            <input type="text" id="roomNumber" name="roomNumber" placeholder="Your room number" required>
-            <label for="restaurantEmail">Restaurant Email:</label>
-            <input type="hidden" id="restaurantEmail" name="restaurantEmail" value="godsownmech@gmail.com">
-        </div>
+    <script>
+        // Event listener for placing an order
+        document.getElementById('placeOrderBtn').addEventListener('click', function() {
+            // Get the form inputs
+            const userEmail = document.getElementById('user_email').value;
+            const roomNumber = document.getElementById('room_number').value;
+            const items = document.getElementById('items').value.split(',');
 
-        <button type="button" class="order-button" onclick="submitOrder()">Place Order</button>
-    </form>
-</main>
+            // Basic validation for form inputs
+            if (!userEmail || !items.length) {
+                alert('Please provide both your email and order items.');
+                return;
+            }
 
-<footer>
-    <p>© 2024 Godsown Retreat</p>
-</footer>
-
-<script>
-    function submitOrder() {
-        const selectedItems = Array.from(document.querySelectorAll('input[name="menuItem"]:checked'))
-            .map(item => item.value);
-        const userEmail = document.getElementById('userEmail').value;
-        const roomNumber = document.getElementById('roomNumber').value;
-        const restaurantEmail = document.getElementById('restaurantEmail').value;
-
-        if (!selectedItems.length) {
-            alert("Please select at least one item.");
-            return;
-        }
-
-        if (!userEmail || !roomNumber || !restaurantEmail) {
-            alert("Please provide both your email, room number, and the restaurant's email.");
-            return;
-        }
-
-        fetch('http://localhost:5000/place_order', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                items: selectedItems,
+            // Prepare order data to send to the backend
+            const orderData = {
+                items: items.map(item => item.trim()),
                 room_number: roomNumber,
                 user_email: userEmail,
-                restaurant_email: restaurantEmail,
-            }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                alert("Error: " + data.error);
-            } else {
-                alert("Order placed successfully!");
-                document.getElementById('menuForm').reset();  // Reset the form
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("Failed to place the order.");
-        });
-    }
-</script>
+            };
 
+            // Send order data to the backend (assuming the backend is running on localhost:5000)
+            fetch('http://localhost:5000/place_order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(orderData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display success or failure message
+                document.getElementById('responseMessage').innerText = data.message || 'Order placed successfully!';
+                document.getElementById('responseMessage').style.color = 'green';
+            })
+            .catch(error => {
+                // Handle errors and display a failure message
+                document.getElementById('responseMessage').innerText = 'Failed to place order. Please try again.';
+                document.getElementById('responseMessage').style.color = 'red';
+            });
+        });
+    </script>
 </body>
 </html>
