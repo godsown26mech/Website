@@ -29,12 +29,22 @@
             display: block;
         }
         .form-group input,
-        .form-group textarea {
+        .form-group select {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
+        }
+        .menu-category {
+            margin-bottom: 20px;
+        }
+        .menu-item {
+            margin-bottom: 10px;
+        }
+        .item-price {
+            font-size: 0.9em;
+            color: #888;
         }
         button {
             width: 100%;
@@ -54,44 +64,110 @@
 <body>
     <h1>Place Your Order</h1>
     <div class="form-container">
+        <!-- Email input -->
         <div class="form-group">
             <label for="user_email">Your Email:</label>
             <input type="email" id="user_email" placeholder="Enter your email" required>
         </div>
+        
+        <!-- Room number input -->
         <div class="form-group">
             <label for="room_number">Room Number:</label>
             <input type="text" id="room_number" placeholder="Enter your room number (Optional)">
         </div>
-        <div class="form-group">
-            <label for="items">Order Items (Comma Separated):</label>
-            <textarea id="items" placeholder="Enter the items you want to order" rows="4" required></textarea>
+        
+        <!-- Menu items selection -->
+        <div class="form-group menu-category">
+            <label>Meals:</label>
+            <div class="menu-item">
+                <input type="checkbox" id="mealBreakfast" value="Breakfast - 80"> Breakfast - ₹80
+            </div>
+            <div class="menu-item">
+                <input type="checkbox" id="mealLunch" value="Lunch - 100"> Lunch - ₹100
+            </div>
+            <div class="menu-item">
+                <input type="checkbox" id="mealDinner" value="Dinner - 100"> Dinner - ₹100
+            </div>
         </div>
+
+        <div class="form-group menu-category">
+            <label>Beverages:</label>
+            <div class="menu-item">
+                <input type="checkbox" id="beverageTea" value="Tea - 40"> Tea - ₹40
+            </div>
+            <div class="menu-item">
+                <input type="checkbox" id="beverageCoffee" value="Coffee - 40"> Coffee - ₹40
+            </div>
+            <div class="menu-item">
+                <input type="checkbox" id="beverageColdrink" value="Coldrink - 40"> Coldrink - ₹40
+            </div>
+            <div class="menu-item">
+                <input type="checkbox" id="beverageColdCoffee" value="Cold Coffee - 60"> Cold Coffee - ₹60
+            </div>
+            <div class="menu-item">
+                <input type="checkbox" id="beverageJuices" value="Fresh Juices - 50"> Fresh Juices - ₹50
+            </div>
+            <div class="menu-item">
+                <input type="checkbox" id="beverageShakes" value="Shakes - 50"> Shakes - ₹50
+            </div>
+        </div>
+
+        <div class="form-group menu-category">
+            <label>Snacks:</label>
+            <div class="menu-item">
+                <input type="checkbox" id="snackOmlette" value="Egg Omlette - 30"> Egg Omlette - ₹30
+            </div>
+            <div class="menu-item">
+                <input type="checkbox" id="snackMaggie" value="Maggie - 30"> Maggie - ₹30
+            </div>
+            <div class="menu-item">
+                <input type="checkbox" id="snackSpringRolls" value="Spring Rolls - 70"> Spring Rolls - ₹70
+            </div>
+            <div class="menu-item">
+                <input type="checkbox" id="snackChowmein" value="Chowmein - 70"> Chowmein - ₹70
+            </div>
+            <div class="menu-item">
+                <input type="checkbox" id="snackChickenFry" value="Chicken Fry - 100"> Chicken Fry - ₹100
+            </div>
+            <div class="menu-item">
+                <input type="checkbox" id="snackChicken65" value="Chicken 65 - 100"> Chicken 65 - ₹100
+            </div>
+            <div class="menu-item">
+                <input type="checkbox" id="snackVegSandwich" value="Veg Sandwich - 50"> Veg Sandwich - ₹50
+            </div>
+        </div>
+
+        <!-- Place order button -->
         <button id="placeOrderBtn">Place Order</button>
         <div id="responseMessage" style="margin-top: 20px;"></div>
     </div>
 
     <script>
-        // Event listener for placing an order
         document.getElementById('placeOrderBtn').addEventListener('click', function() {
-            // Get the form inputs
+            // Get user input values
             const userEmail = document.getElementById('user_email').value;
             const roomNumber = document.getElementById('room_number').value;
-            const items = document.getElementById('items').value.split(',');
+            
+            // Get selected menu items
+            const selectedItems = [];
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach((checkbox) => {
+                selectedItems.push(checkbox.value);
+            });
 
-            // Basic validation for form inputs
-            if (!userEmail || !items.length) {
-                alert('Please provide both your email and order items.');
+            // Validate user input
+            if (!userEmail || !selectedItems.length) {
+                alert('Please provide both your email and select at least one item.');
                 return;
             }
 
-            // Prepare order data to send to the backend
+            // Create order data
             const orderData = {
-                items: items.map(item => item.trim()),
+                items: selectedItems,
                 room_number: roomNumber,
                 user_email: userEmail,
             };
 
-            // Send order data to the backend (assuming the backend is running on localhost:5000)
+            // Send the order data to the backend
             fetch('http://localhost:5000/place_order', {
                 method: 'POST',
                 headers: {
@@ -101,12 +177,11 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Display success or failure message
+                // Display success or error message
                 document.getElementById('responseMessage').innerText = data.message || 'Order placed successfully!';
                 document.getElementById('responseMessage').style.color = 'green';
             })
             .catch(error => {
-                // Handle errors and display a failure message
                 document.getElementById('responseMessage').innerText = 'Failed to place order. Please try again.';
                 document.getElementById('responseMessage').style.color = 'red';
             });
