@@ -3,189 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Order Form</title>
+    <title>Restaurant Menu</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
         }
-        h1 {
-            text-align: center;
-        }
-        .form-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            font-weight: bold;
-            display: block;
-        }
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .menu-category {
-            margin-bottom: 20px;
-        }
-        .menu-item {
-            margin-bottom: 10px;
-        }
-        .item-price {
-            font-size: 0.9em;
-            color: #888;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #5cb85c;
+
+        header {
+            background-color: #000;
             color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .menu {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+        }
+
+        .menu-section {
+            margin-bottom: 2rem;
+        }
+
+        .menu-section h2 {
+            border-bottom: 2px solid #000;
+            color: #333;
+            padding-bottom: 0.5rem;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item-name {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .menu-item-price {
+            color: #777;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #000;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .order-button {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #000;
+            color: white;
+            font-size: 1rem;
             border: none;
-            font-size: 16px;
             border-radius: 4px;
             cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
         }
-        button:hover {
-            background-color: #4cae4c;
+
+        .order-button:hover {
+            background-color: #333;
+        }
+
+        .room-number {
+            margin-top: 1rem;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .room-number label {
+            margin-bottom: 0.5rem;
+        }
+
+        .room-number input {
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 300px;
         }
     </style>
 </head>
 <body>
-    <h1>Place Your Order</h1>
-    <div class="form-container">
-        <!-- Email input -->
-        <div class="form-group">
-            <label for="user_email">Your Email:</label>
-            <input type="email" id="user_email" placeholder="Enter your email" required>
-        </div>
-        
-        <!-- Room number input -->
-        <div class="form-group">
-            <label for="room_number">Room Number:</label>
-            <input type="text" id="room_number" placeholder="Enter your room number (Optional)">
-        </div>
-        
-        <!-- Menu items selection -->
-        <div class="form-group menu-category">
-            <label>Meals:</label>
-            <div class="menu-item">
-                <input type="checkbox" id="mealBreakfast" value="Breakfast - 80"> Breakfast - ₹80
-            </div>
-            <div class="menu-item">
-                <input type="checkbox" id="mealLunch" value="Lunch - 100"> Lunch - ₹100
-            </div>
-            <div class="menu-item">
-                <input type="checkbox" id="mealDinner" value="Dinner - 100"> Dinner - ₹100
-            </div>
-        </div>
 
-        <div class="form-group menu-category">
-            <label>Beverages:</label>
+<header>
+    <h1>Welcome to Godsown Retreat</h1>
+</header>
+
+<main class="menu">
+    <form id="menuForm">
+        <div class="menu-section">
+            <h2>Meals</h2>
             <div class="menu-item">
-                <input type="checkbox" id="beverageTea" value="Tea - 40"> Tea - ₹40
+                <label>
+                    <input type="checkbox" name="menuItem" value="Breakfast - ₹80">
+                    <span class="menu-item-name">Breakfast</span>
+                </label>
+                <span class="menu-item-price">₹80</span>
             </div>
             <div class="menu-item">
-                <input type="checkbox" id="beverageCoffee" value="Coffee - 40"> Coffee - ₹40
+                <label>
+                    <input type="checkbox" name="menuItem" value="Lunch - ₹100">
+                    <span class="menu-item-name">Lunch</span>
+                </label>
+                <span class="menu-item-price">₹100</span>
             </div>
             <div class="menu-item">
-                <input type="checkbox" id="beverageColdrink" value="Coldrink - 40"> Coldrink - ₹40
-            </div>
-            <div class="menu-item">
-                <input type="checkbox" id="beverageColdCoffee" value="Cold Coffee - 60"> Cold Coffee - ₹60
-            </div>
-            <div class="menu-item">
-                <input type="checkbox" id="beverageJuices" value="Fresh Juices - 50"> Fresh Juices - ₹50
-            </div>
-            <div class="menu-item">
-                <input type="checkbox" id="beverageShakes" value="Shakes - 50"> Shakes - ₹50
+                <label>
+                    <input type="checkbox" name="menuItem" value="Dinner - ₹100">
+                    <span class="menu-item-name">Dinner</span>
+                </label>
+                <span class="menu-item-price">₹100</span>
             </div>
         </div>
 
-        <div class="form-group menu-category">
-            <label>Snacks:</label>
+        <div class="menu-section">
+            <h2>Beverages</h2>
             <div class="menu-item">
-                <input type="checkbox" id="snackOmlette" value="Egg Omlette - 30"> Egg Omlette - ₹30
+                <label>
+                    <input type="checkbox" name="menuItem" value="Tea - ₹40">
+                    <span class="menu-item-name">Tea</span>
+                </label>
+                <span class="menu-item-price">₹40</span>
             </div>
             <div class="menu-item">
-                <input type="checkbox" id="snackMaggie" value="Maggie - 30"> Maggie - ₹30
+                <label>
+                    <input type="checkbox" name="menuItem" value="Coffee - ₹40">
+                    <span class="menu-item-name">Coffee</span>
+                </label>
+                <span class="menu-item-price">₹40</span>
             </div>
             <div class="menu-item">
-                <input type="checkbox" id="snackSpringRolls" value="Spring Rolls - 70"> Spring Rolls - ₹70
+                <label>
+                    <input type="checkbox" name="menuItem" value="Coldrink - ₹40">
+                    <span class="menu-item-name">Coldrink</span>
+                </label>
+                <span class="menu-item-price">₹40</span>
             </div>
             <div class="menu-item">
-                <input type="checkbox" id="snackChowmein" value="Chowmein - 70"> Chowmein - ₹70
+                <label>
+                    <input type="checkbox" name="menuItem" value="Cold Coffee - ₹60">
+                    <span class="menu-item-name">Cold Coffee</span>
+                </label>
+                <span class="menu-item-price">₹60</span>
             </div>
             <div class="menu-item">
-                <input type="checkbox" id="snackChickenFry" value="Chicken Fry - 100"> Chicken Fry - ₹100
+                <label>
+                    <input type="checkbox" name="menuItem" value="Fresh Juices - ₹50">
+                    <span class="menu-item-name">Fresh Juices</span>
+                </label>
+                <span class="menu-item-price">₹50</span>
             </div>
             <div class="menu-item">
-                <input type="checkbox" id="snackChicken65" value="Chicken 65 - 100"> Chicken 65 - ₹100
-            </div>
-            <div class="menu-item">
-                <input type="checkbox" id="snackVegSandwich" value="Veg Sandwich - 50"> Veg Sandwich - ₹50
+                <label>
+                    <input type="checkbox" name="menuItem" value="Shakes - ₹50">
+                    <span class="menu-item-name">Shakes</span>
+                </label>
+                <span class="menu-item-price">₹50</span>
             </div>
         </div>
 
-        <!-- Place order button -->
-        <button id="placeOrderBtn">Place Order</button>
-        <div id="responseMessage" style="margin-top: 20px;"></div>
-    </div>
+        <div class="menu-section">
+            <h2>Snacks</h2>
+            <div class="menu-item">
+                <label>
+                    <input type="checkbox" name="menuItem" value="Egg Omlette - ₹30">
+                    <span class="menu-item-name">Egg Omlette</span>
+                </label>
+                <span class="menu-item-price">₹30</span>
+            </div>
+            <div class="menu-item">
+                <label>
+                    <input type="checkbox" name="menuItem" value="Maggie - ₹30">
+                    <span class="menu-item-name">Maggie</span>
+                </label>
+                <span class="menu-item-price">₹30</span>
+            </div>
+            <div class="menu-item">
+                <label>
+                    <input type="checkbox" name="menuItem" value="Spring Rolls - ₹70">
+                    <span class="menu-item-name">Spring Rolls</span>
+                </label>
+                <span class="menu-item-price">₹70</span>
+            </div>
+            <div class="menu-item">
+                <label>
+                    <input type="checkbox" name="menuItem" value="Chowmein - ₹70">
+                    <span class="menu-item-name">Chowmein</span>
+                </label>
+                <span class="menu-item-price">₹70</span>
+            </div>
+            <div class="menu-item">
+                <label>
+                    <input type="checkbox" name="menuItem" value="Chicken Fry - ₹100">
+                    <span class="menu-item-name">Chicken Fry</span>
+                </label>
+                <span class="menu-item-price">₹100</span>
+            </div>
+            <div class="menu-item">
+                <label>
+                    <input type="checkbox" name="menuItem" value="Chicken 65 - ₹100">
+                    <span class="menu-item-name">Chicken 65</span>
+                </label>
+                <span class="menu-item-price">₹100</span>
+            </div>
+            <div class="menu-item">
+                <label>
+                    <input type="checkbox" name="menuItem" value="Veg Sandwich - ₹50">
+                    <span class="menu-item-name">Veg Sandwich</span>
+                </label>
+                <span class="menu-item-price">₹50</span>
+            </div>
+        </div>
 
-    <script>
-        document.getElementById('placeOrderBtn').addEventListener('click', function() {
-            // Get user input values
-            const userEmail = document.getElementById('user_email').value;
-            const roomNumber = document.getElementById('room_number').value;
-            
-            // Get selected menu items
-            const selectedItems = [];
-            document.querySelectorAll('input[type="checkbox"]:checked').forEach((checkbox) => {
-                selectedItems.push(checkbox.value);
-            });
+        <button type="button" class="order-button" onclick="showRoomInput()">Place Order</button>
 
-            // Validate user input
-            if (!userEmail || !selectedItems.length) {
-                alert('Please provide both your email and select at least one item.');
-                return;
-            }
+        <div class="room-number" id="roomNumberSection">
+            <label for="roomNumber">Enter Room Number (optional):</label>
+            <input type="text" id="roomNumber" name="roomNumber" placeholder="Room Number">
+            <button type="button" class="order-button" onclick="submitOrder()">Confirm Order</button>
+        </div>
+    </form>
+</main>
 
-            // Create order data
-            const orderData = {
-                items: selectedItems,
-                room_number: roomNumber,
-                user_email: userEmail,
-            };
+<footer>
+</footer>
 
-            // Send the order data to the backend
-            fetch('http://localhost:5000/place_order', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(orderData),
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Display success or error message
-                document.getElementById('responseMessage').innerText = data.message || 'Order placed successfully!';
-                document.getElementById('responseMessage').style.color = 'green';
-            })
-            .catch(error => {
-                document.getElementById('responseMessage').innerText = 'Failed to place order. Please try again.';
-                document.getElementById('responseMessage').style.color = 'red';
-            });
-        });
-    </script>
+<script>
+    function showRoomInput() {
+        const selectedItems = Array.from(document.querySelectorAll('input[name="menuItem"]:checked'))
+            .map(item => item.value);
+
+        if (selectedItems.length === 0) {
+            alert("Please select at least one item to place an order.");
+        } else {
+            document.getElementById('roomNumberSection').style.display = 'flex';
+        }
+    }
+
+    function submitOrder() {
+        const selectedItems = Array.from(document.querySelectorAll('input[name="menuItem"]:checked'))
+            .map(item => item.value);
+        const roomNumber = document.getElementById('roomNumber').value;
+
+        let orderSummary = "You have ordered: \n" + selectedItems.join("\n");
+        if (roomNumber) {
+            orderSummary += "\nRoom Number: " + roomNumber;
+        }
+
+        alert(orderSummary);
+    }
+</script>
+
 </body>
 </html>
