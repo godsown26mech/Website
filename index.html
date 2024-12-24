@@ -276,6 +276,7 @@
                 alert("Error: " + data.error);
             } else {
                 alert("Order placed successfully!");
+                document.getElementById('menuForm').reset();  // Reset the form
             }
         })
         .catch(error => {
