@@ -252,31 +252,7 @@
 <footer>
 </footer>
 
-<script>
-    function showRoomInput() {
-        const selectedItems = Array.from(document.querySelectorAll('input[name="menuItem"]:checked'))
-            .map(item => item.value);
-
-        if (selectedItems.length === 0) {
-            alert("Please select at least one item to place an order.");
-        } else {
-            document.getElementById('roomNumberSection').style.display = 'flex';
-        }
-    }
-
-    function submitOrder() {
-        const selectedItems = Array.from(document.querySelectorAll('input[name="menuItem"]:checked'))
-            .map(item => item.value);
-        const roomNumber = document.getElementById('roomNumber').value;
-
-        let orderSummary = "You have ordered: \n" + selectedItems.join("\n");
-        if (roomNumber) {
-            orderSummary += "\nRoom Number: " + roomNumber;
-        }
-
-        alert(orderSummary);
-    }
-</script>
+<script src="order.js"></script>
 
 </body>
 </html>
