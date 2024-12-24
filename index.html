@@ -256,7 +256,7 @@
         }
 
         fetch('http://localhost:5000/place_order', {
-            method: 'POST',
+            method: 'POST', // Make sure this is POST
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -266,18 +266,18 @@
                 restaurant_email: restaurantEmail,
             }),
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    alert("Error: " + data.error);
-                } else {
-                    alert("Order placed successfully!");
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("Failed to place the order.");
-            });
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert("Error: " + data.error);
+            } else {
+                alert("Order placed successfully!");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Failed to place the order.");
+        });
     }
 </script>
 
