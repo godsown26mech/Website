@@ -87,23 +87,24 @@
             background-color: #333;
         }
 
-        .room-number {
+        .email-section {
             margin-top: 1rem;
-            display: none;
-            flex-direction: column;
-            align-items: center;
         }
 
-        .room-number label {
+        .email-section label {
+            display: block;
             margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
         }
 
-        .room-number input {
+        .email-section input {
             padding: 0.5rem;
             border: 1px solid #ccc;
             border-radius: 4px;
             width: 100%;
-            max-width: 300px;
+            max-width: 400px;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
@@ -115,6 +116,7 @@
 
 <main class="menu">
     <form id="menuForm">
+        <!-- Meals -->
         <div class="menu-section">
             <h2>Meals</h2>
             <div class="menu-item">
@@ -140,6 +142,7 @@
             </div>
         </div>
 
+        <!-- Beverages -->
         <div class="menu-section">
             <h2>Beverages</h2>
             <div class="menu-item">
@@ -165,8 +168,8 @@
             </div>
             <div class="menu-item">
                 <label>
-                    <input type="checkbox" name="menuItem" value="Cold coffee">
-                    <span class="menu-item-name">Cold coffee</span>
+                    <input type="checkbox" name="menuItem" value="Cold Coffee">
+                    <span class="menu-item-name">Cold Coffee</span>
                 </label>
                 <span class="menu-item-price">₹60</span>
             </div>
@@ -177,21 +180,15 @@
                 </label>
                 <span class="menu-item-price">₹50</span>
             </div>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Shakes">
-                    <span class="menu-item-name">Shakes</span>
-                </label>
-                <span class="menu-item-price">₹50</span>
-            </div>
         </div>
 
+        <!-- Snacks -->
         <div class="menu-section">
             <h2>Snacks</h2>
             <div class="menu-item">
                 <label>
-                    <input type="checkbox" name="menuItem" value="Egg omlette">
-                    <span class="menu-item-name">Egg omlette</span>
+                    <input type="checkbox" name="menuItem" value="Egg Omlette">
+                    <span class="menu-item-name">Egg Omlette</span>
                 </label>
                 <span class="menu-item-price">₹30</span>
             </div>
@@ -204,8 +201,8 @@
             </div>
             <div class="menu-item">
                 <label>
-                    <input type="checkbox" name="menuItem" value="Spring rolls">
-                    <span class="menu-item-name">Spring rolls</span>
+                    <input type="checkbox" name="menuItem" value="Spring Rolls">
+                    <span class="menu-item-name">Spring Rolls</span>
                 </label>
                 <span class="menu-item-price">₹70</span>
             </div>
@@ -223,58 +220,64 @@
                 </label>
                 <span class="menu-item-price">₹100</span>
             </div>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Chicken 65">
-                    <span class="menu-item-name">Chicken 65</span>
-                </label>
-                <span class="menu-item-price">₹100</span>
-            </div>
-            <div class="menu-item">
-                <label>
-                    <input type="checkbox" name="menuItem" value="Veg Sandwich">
-                    <span class="menu-item-name">Veg Sandwich</span>
-                </label>
-                <span class="menu-item-price">₹50</span>
-            </div>
         </div>
 
-        <button type="button" class="order-button" onclick="showRoomInput()">Place Order</button>
-
-        <div class="room-number" id="roomNumberSection">
-            <label for="roomNumber">Enter Room Number (optional):</label>
-            <input type="text" id="roomNumber" name="roomNumber" placeholder="Room Number">
-            <button type="button" class="order-button" onclick="submitOrder()">Confirm Order</button>
+        <!-- Email Section -->
+        <div class="email-section">
+            <label for="userEmail">Your Email:</label>
+            <input type="email" id="userEmail" name="userEmail" placeholder="Your email address" required>
+            <label for="restaurantEmail">Restaurant Email:</label>
+            <input type="email" id="restaurantEmail" name="restaurantEmail" placeholder="Restaurant email address" required>
         </div>
+
+        <button type="button" class="order-button" onclick="submitOrder()">Place Order</button>
     </form>
 </main>
 
 <footer>
+    <p>© 2024 Godsown Retreat</p>
 </footer>
 
 <script>
-    function showRoomInput() {
-        const selectedItems = Array.from(document.querySelectorAll('input[name="menuItem"]:checked'))
-            .map(item => item.value);
-
-        if (selectedItems.length === 0) {
-            alert("Please select at least one item to place an order.");
-        } else {
-            document.getElementById('roomNumberSection').style.display = 'flex';
-        }
-    }
-
     function submitOrder() {
         const selectedItems = Array.from(document.querySelectorAll('input[name="menuItem"]:checked'))
             .map(item => item.value);
-        const roomNumber = document.getElementById('roomNumber').value;
+        const userEmail = document.getElementById('userEmail').value;
+        const restaurantEmail = document.getElementById('restaurantEmail').value;
 
-        let orderSummary = "You have ordered: \n" + selectedItems.join("\n");
-        if (roomNumber) {
-            orderSummary += "\nRoom Number: " + roomNumber;
+        if (!selectedItems.length) {
+            alert("Please select at least one item.");
+            return;
         }
 
-        alert(orderSummary);
+        if (!userEmail || !restaurantEmail) {
+            alert("Please provide both your email and the restaurant's email.");
+            return;
+        }
+
+        fetch('http://localhost:5000/place_order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                items: selectedItems,
+                user_email: userEmail,
+                restaurant_email: restaurantEmail,
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert("Error: " + data.error);
+                } else {
+                    alert("Order placed successfully!");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Failed to place the order.");
+            });
     }
 </script>
 
