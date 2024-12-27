@@ -114,8 +114,8 @@
 </header>
 
 <main class="menu">
-    <!-- Direct form submission -->
-    <form id="menuForm" action="http://localhost:5000/place_order" method="POST">
+    <form id="menuForm">
+        <!-- Meals Section -->
         <div class="menu-section">
             <h2>Meals</h2>
             <div class="menu-item">
@@ -141,6 +141,7 @@
             </div>
         </div>
 
+        <!-- Beverages Section -->
         <div class="menu-section">
             <h2>Beverages</h2>
             <div class="menu-item">
@@ -187,6 +188,7 @@
             </div>
         </div>
 
+        <!-- Snacks Section -->
         <div class="menu-section">
             <h2>Snacks</h2>
             <div class="menu-item">
@@ -246,17 +248,60 @@
             <label for="userEmail">Email Address:</label>
             <input type="email" id="userEmail" name="userEmail" placeholder="Enter your email" required>
 
-            <!-- Room Number input -->
             <label for="roomNumber">Enter Room Number (optional):</label>
-            <input type="text" id="roomNumber" name="roomNumber" placeholder="Room Number">
+            <input type="text" id="roomNumber" name="room_number" placeholder="Room Number">
         </div>
 
         <button type="submit" class="order-button">Place Order</button>
     </form>
+
+    <div id="error-message" style="color: red; display: none;">There was an error with your order. Please try again.</div>
+    <div id="success-message" style="color: green; display: none;">Your order was placed successfully!</div>
 </main>
 
 <footer>
 </footer>
+
+<script>
+    document.getElementById("menuForm").addEventListener("submit", async function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Gather form data
+        const formData = new FormData(this);
+        const items = formData.getAll('items');  // Get all selected items
+        const room_number = formData.get('room_number');  // Get room number
+        const userEmail = formData.get('userEmail');  // Get email
+
+        // Prepare data for the backend
+        const orderData = {
+            items,
+            room_number,
+            userEmail
+        };
+
+        try {
+            const response = await fetch("http://localhost:5000/place_order", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(orderData)
+            });
+
+            if (response.ok) {
+                document.getElementById("success-message").style.display = "block"; // Show success message
+                document.getElementById("error-message").style.display = "none"; // Hide error message
+            } else {
+                document.getElementById("success-message").style.display = "none"; // Hide success message
+                document.getElementById("error-message").style.display = "block"; // Show error message
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            document.getElementById("success-message").style.display = "none"; // Hide success message
+            document.getElementById("error-message").style.display = "block"; // Show error message
+        }
+    });
+</script>
 
 </body>
 </html>
